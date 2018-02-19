@@ -4,6 +4,11 @@ import { TabNavigator } from 'react-navigation'
 import { MaterialCommunityIcons, Entypo } from '@expo/vector-icons'
 import { green, white } from './utils/colors'
 import { Constants } from 'expo'
+
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducer from './reducers'
+
 import Decks from './components/Decks'
 import NewDeck from './components/NewDeck'
 
@@ -54,10 +59,12 @@ const Tabs = TabNavigator({
 export default class App extends React.Component {
   render() {
     return (
-      <View style={{ flex: 1 }}>
-          <UdaciCardsStatusBar backgroundColor={green} barStyle='light-content' />
-          <Tabs/>
-      </View>
+        <Provider store={createStore(reducer)}>
+            <View style={{ flex: 1 }}>
+                <UdaciCardsStatusBar backgroundColor={green} barStyle='light-content' />
+                <Tabs/>
+            </View>
+        </Provider>
     );
   }
 }
