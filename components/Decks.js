@@ -8,7 +8,8 @@ import { setDecks } from '../actions'
 function renderItem(rowItem, navigation) {
     const { title, questions } = rowItem.item
     return (
-        <TouchableOpacity>
+        <TouchableOpacity
+            onPress={() => navigation.navigate('DeckDetails', { deckId: title})}>
             <View style={styles.item}>
                 <Text style={styles.title}>{title}</Text>
                 <Text style={styles.subtitle}>{questions.length} card{questions.length !== 1 ? 's' : ''} </Text>

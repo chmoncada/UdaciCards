@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native'
-import { TabNavigator } from 'react-navigation'
+import { TabNavigator, StackNavigator } from 'react-navigation'
 import { MaterialCommunityIcons, Entypo } from '@expo/vector-icons'
 import { green, white } from './utils/colors'
 import { Constants } from 'expo'
@@ -11,6 +11,7 @@ import reducer from './reducers'
 
 import Decks from './components/Decks'
 import NewDeck from './components/NewDeck'
+import DeckDetails from './components/DeckDetails'
 
 function UdaciCardsStatusBar({ backgroundColor, ...props }) {
     return (
@@ -55,6 +56,22 @@ const Tabs = TabNavigator({
     }
 })
 
+const MainNavigator = StackNavigator({
+    Home: {
+        screen: Tabs,
+    },
+    DeckDetails: {
+        screen: DeckDetails,
+        navigationOptions: {
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: green
+            }
+        }
+    }
+})
+
+
 
 export default class App extends React.Component {
   render() {
@@ -62,7 +79,7 @@ export default class App extends React.Component {
         <Provider store={createStore(reducer)}>
             <View style={{ flex: 1 }}>
                 <UdaciCardsStatusBar backgroundColor={green} barStyle='light-content' />
-                <Tabs/>
+                <MainNavigator/>
             </View>
         </Provider>
     );
