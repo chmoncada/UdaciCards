@@ -1,11 +1,19 @@
 import React from 'react'
-import { StyleSheet, Text, View, Platform } from 'react-native'
+import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native'
 import { TabNavigator } from 'react-navigation'
 import { MaterialCommunityIcons, Entypo } from '@expo/vector-icons'
-import { green, white } from './utils/colors'
+import { green, white, purple } from './utils/colors'
 import { Constants } from 'expo'
 import Decks from './components/Decks'
 import NewDeck from './components/NewDeck'
+
+function UdaciCardsStatusBar({ backgroundColor, ...props }) {
+    return (
+        <View style={{backgroundColor, height: Constants.statusBarHeight}}>
+            <StatusBar traslucent backgroundColor={backgroundColor} {...props} />
+        </View>
+    )
+}
 
 const Tabs = TabNavigator({
     Decks: {
@@ -47,7 +55,7 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-          <View style={{ height: 20 }} />
+          <UdaciCardsStatusBar backgroundColor={green} barStyle='light-content' />
           <Tabs/>
       </View>
     );
