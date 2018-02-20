@@ -12,6 +12,8 @@ import reducer from './reducers'
 import Decks from './components/Decks'
 import NewDeck from './components/NewDeck'
 import DeckDetails from './components/DeckDetails'
+import AddCard from './components/AddCard'
+import QuizFlow from './components/QuizFlow'
 
 function UdaciCardsStatusBar({ backgroundColor, ...props }) {
     return (
@@ -68,7 +70,25 @@ const MainNavigator = StackNavigator({
                 backgroundColor: green
             }
         }
-    }
+    },
+    AddCard: {
+        screen: AddCard,
+        navigationOptions: {
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: green
+            }
+        }
+    },
+    QuizFlow: {
+        screen: QuizFlow,
+        navigationOptions: {
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: green
+            }
+        }
+    },
 })
 
 

@@ -15,6 +15,7 @@ class DeckDetails extends Component {
     render() {
 
         const { title, questions } = this.props.deck
+        const { navigation, deckId } = this.props
 
         return (
             <View style={styles.container}>
@@ -25,12 +26,12 @@ class DeckDetails extends Component {
                 <View>
                     <TouchableOpacity
                         style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, { backgroundColor: white, borderWidth: 1}] }
-                        onPress={this.handleSubmit} >
+                        onPress={() => navigation.navigate('AddCard', { deckId: deckId })} >
                         <Text style={[styles.btnText, {color:'black'}]}>Add Card</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn }
-                        onPress={this.handleSubmit} >
+                        onPress={() => navigation.navigate('QuizFlow', { deckId: deckId })} >
                         <Text style={styles.btnText}>Start Quiz</Text>
                     </TouchableOpacity>
                 </View>
@@ -44,7 +45,8 @@ function mapStateToProps(state, { navigation }) {
     const { deckId } = navigation.state.params
     return {
         deckId,
-        deck: state[deckId]
+        deck: state[deckId],
+        navigation
     }
 }
 
