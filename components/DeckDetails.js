@@ -31,7 +31,7 @@ class DeckDetails extends Component {
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn }
-                        onPress={() => navigation.navigate('QuizFlow', { deckId: deckId })} >
+                        onPress={() => questions.length > 0 && navigation.navigate('QuizFlow', { deckId: deckId })} >
                         <Text style={styles.btnText}>Start Quiz</Text>
                     </TouchableOpacity>
                 </View>
