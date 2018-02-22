@@ -15,6 +15,7 @@ import DeckDetails from './components/DeckDetails'
 import AddCard from './components/AddCard'
 import QuizFlow from './components/QuizFlow'
 import { setLocalNotification } from './utils/notifications'
+import QuizResults from './components/QuizResults'
 
 function UdaciCardsStatusBar({ backgroundColor, ...props }) {
     return (
@@ -83,11 +84,18 @@ const MainNavigator = StackNavigator({
     },
     QuizFlow: {
         screen: QuizFlow,
+        key: 'QUIZ_FLOW',
         navigationOptions: {
             headerTintColor: white,
             headerStyle: {
                 backgroundColor: green
             }
+        }
+    },
+    QuizResults: {
+        screen: QuizResults,
+        navigationOptions: {
+            header: null
         }
     },
 })

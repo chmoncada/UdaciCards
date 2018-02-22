@@ -8,7 +8,9 @@ class QuizFlow extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {}
+        this.state = {
+            remainingCards: Number.MAX_SAFE_INTEGER
+        }
     }
 
     componentWillMount() {
@@ -30,23 +32,42 @@ class QuizFlow extends Component {
         const { deck } = this.props
 
         const totalCards = deck.questions.length
+        const initialCards = deck.questions.map((card, index) => index)
+        const questionIndex = Math.floor(Math.random() * initialCards.length)
 
         this.setState({
-            remainingCards: deck.questions.map((card, index) => index),
+            remainingCards: initialCards.filter((item, index) => index != questionIndex),
             correctAnswers: 0,
-            totalCards: totalCards
+            totalCards: totalCards,
+            currentQuestion: initialCards[questionIndex]
         })
-        this.next()
+        //this.next()
     }
 
     next() {
+
+        const {remainingCards, correctAnswers, totalCards} = this.state
+        const {navigation} = this.props
+        const deckId = navigation.state.params.deckId
+
+        if (remainingCards.length <= 0) {
+            navigation.navigate({
+                routeName: 'QuizResults',
+                params: { correctAnswers: correctAnswers,
+                    totalQuestions: totalCards,
+                    deckId: deckId,
+                    onNavigateBack: this.handleOnNavigateBack},
+                key: 'QUIZ_FLOW'})
+            return
+        }
+
         this.setState((state) => {
-           const { remainingCards } = state
+            const {remainingCards} = state
             if (remainingCards.length > 0) {
-                const nextQuestionIndex = Math.floor(Math.random()*remainingCards.length)
+                const questionIndex = Math.floor(Math.random() * remainingCards.length)
                 return {
-                    currentQuestion: remainingCards[nextQuestionIndex],
-                    remainingCards: remainingCards.filter((item, index) => index != nextQuestionIndex),
+                    currentQuestion: remainingCards[questionIndex],
+                    remainingCards: remainingCards.filter((item, index) => index != questionIndex),
                     questionShown: true
                 }
             } else {
@@ -64,9 +85,8 @@ class QuizFlow extends Component {
         }))
     }
 
-    handleBackToDeck = () => {
-        const { navigation } = this.props
-        navigation.goBack()
+    handleOnNavigateBack = () => {
+        this.startQuiz()
     }
 
     render() {
@@ -78,19 +98,6 @@ class QuizFlow extends Component {
             return (
                 <View style={styles.container}>
                     <Text style={styles.card}>Deck completed!</Text>
-                    <Text style={styles.card}>Correct answers: {correctAnswers}/{deck.questions.length}</Text>
-                    <View>
-                        <TouchableOpacity
-                            style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, { backgroundColor: green}] }
-                            onPress={this.startQuiz} >
-                            <Text style={styles.buttonText}>Restart Quiz</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, { backgroundColor: green}] }
-                            onPress={this.handleBackToDeck} >
-                            <Text style={styles.buttonText}>Back to Deck</Text>
-                        </TouchableOpacity>
-                    </View>
                 </View>
             )
         }
