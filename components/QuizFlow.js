@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import {StyleSheet, View, Text, TouchableOpacity, Platform} from 'react-native'
 import { connect } from 'react-redux'
-import {white, green} from "../utils/colors";
+import {white, green} from '../utils/colors'
+import { clearLocalNotification, setLocalNotification } from '../utils/notifications'
 
 class QuizFlow extends Component {
 
@@ -12,6 +13,8 @@ class QuizFlow extends Component {
 
     componentWillMount() {
         this.startQuiz()
+        clearLocalNotification()
+            .then(setLocalNotification())
     }
 
     handleCorrectAnswer = () => {

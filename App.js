@@ -1,5 +1,5 @@
-import React from 'react'
-import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native'
+import React, { Component } from 'react'
+import { StyleSheet, View, Platform, StatusBar } from 'react-native'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import { MaterialCommunityIcons, Entypo } from '@expo/vector-icons'
 import { green, white } from './utils/colors'
@@ -14,6 +14,7 @@ import NewDeck from './components/NewDeck'
 import DeckDetails from './components/DeckDetails'
 import AddCard from './components/AddCard'
 import QuizFlow from './components/QuizFlow'
+import { setLocalNotification } from './utils/notifications'
 
 function UdaciCardsStatusBar({ backgroundColor, ...props }) {
     return (
@@ -93,8 +94,13 @@ const MainNavigator = StackNavigator({
 
 
 
-export default class App extends React.Component {
-  render() {
+export default class App extends Component {
+
+    componentDidMount() {
+        setLocalNotification()
+    }
+
+    render() {
     return (
         <Provider store={createStore(reducer)}>
             <View style={{ flex: 1 }}>
