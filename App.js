@@ -1,29 +1,25 @@
 import React, { Component } from 'react'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
 import { StyleSheet, View, Platform, StatusBar } from 'react-native'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import { MaterialCommunityIcons, Entypo } from '@expo/vector-icons'
-import { green, white } from './utils/colors'
-import { Constants } from 'expo'
 
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
 import reducer from './reducers'
+
+import styles from './styles/common'
+import { green, white } from './styles/colors'
 
 import Decks from './components/Decks'
 import NewDeck from './components/NewDeck'
 import DeckDetails from './components/DeckDetails'
 import AddCard from './components/AddCard'
 import QuizFlow from './components/QuizFlow'
-import { setLocalNotification } from './utils/notifications'
 import QuizResults from './components/QuizResults'
 
-function UdaciCardsStatusBar({ backgroundColor, ...props }) {
-    return (
-        <View style={{backgroundColor, height: Constants.statusBarHeight}}>
-            <StatusBar traslucent backgroundColor={backgroundColor} {...props} />
-        </View>
-    )
-}
+import { UdaciCardsStatusBar } from './utils/utils'
+import { setLocalNotification } from './utils/notifications'
+
 
 const Tabs = TabNavigator({
     Decks: {
@@ -111,7 +107,7 @@ export default class App extends Component {
     render() {
     return (
         <Provider store={createStore(reducer)}>
-            <View style={{ flex: 1 }}>
+            <View style={styles.basicContainer}>
                 <UdaciCardsStatusBar backgroundColor={green} barStyle='light-content' />
                 <MainNavigator/>
             </View>
@@ -120,11 +116,3 @@ export default class App extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

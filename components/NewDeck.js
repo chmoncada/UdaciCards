@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { addDeck } from '../actions'
 import * as api from '../utils/api'
 
-import { green } from '../utils/colors'
+import { green } from '../styles/colors'
 
 class NewDeck extends Component {
 

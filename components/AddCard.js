@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {StyleSheet, TouchableOpacity, Text, KeyboardAvoidingView, TextInput, Alert, Platform} from 'react-native'
 import { connect } from 'react-redux'
 import { addCard } from '../actions'
-import {green} from "../utils/colors";
+import {green} from "../styles/colors";
 import {addCardToDeck} from "../utils/api";
 
 

@@ -15,6 +15,10 @@ function createNotification() {
         body: "👋 don't forget to use UdaciCards today!",
         ios: {
             sound: true,
+        },
+        android: {
+            sound: true,
+            vibrate: true
         }
     }
 }

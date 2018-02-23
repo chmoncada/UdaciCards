@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {StyleSheet, View, Text, TouchableOpacity, Platform} from 'react-native'
 import { connect } from 'react-redux'
-import {white, green} from '../utils/colors'
+import {white, green} from '../styles/colors'
 import { clearLocalNotification, setLocalNotification } from '../utils/notifications'
 
 class QuizFlow extends Component {
