@@ -22,8 +22,10 @@ class QuizFlow extends Component {
     handleCorrectAnswer = () => {
         this.setState((state) => ({
             correctAnswers: state.correctAnswers + 1
-        }))
-        this.next()
+        }), function() {
+            console.log(this.state.correctAnswers)
+            this.next()
+        })
     }
 
     handleIncorrectAnswer = () => { this.next() }
@@ -41,7 +43,6 @@ class QuizFlow extends Component {
             totalCards: totalCards,
             currentQuestion: initialCards[questionIndex]
         })
-        //this.next()
     }
 
     next() {
